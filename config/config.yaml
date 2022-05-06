@@ -1,0 +1,6 @@
+pipeline_config:
+  artifact_url: housing/artifact
+
+dataset_config:
+  dataset_download_url: https://raw.githubusercontent.com/ageron/handson-ml/master/datasets/housing/housing.tgz
+  raw_data_dir: raw_data
