@@ -1,6 +1,24 @@
-pipeline_config:
+training_pipeline_config:
   artifact_url: housing/artifact
 
-dataset_config:
+data_ingestion_config:
   dataset_download_url: https://raw.githubusercontent.com/ageron/handson-ml/master/datasets/housing/housing.tgz
   raw_data_dir: raw_data
+
+
+
+data_validation_config:
+  x: sd
+
+data_transformation_config:
+  y: z
+
+model_trainer_config:
+  s: s
+
+
+model_evaluation_config:
+  s: asdk
+
+model_pusher_config:
+  xcsdbjfks:sdbnkfjs
