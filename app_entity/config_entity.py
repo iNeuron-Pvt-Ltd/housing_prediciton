@@ -2,27 +2,24 @@ from app_logger import logging
 from app_exception import AppException
 from collections import namedtuple
 
-from app_src.stage_01_data_validation import DataValidation
-from app_src.stage_02_data_transformation import DataTransformation
-from app_src.stage_05_model_pusher import ModelPusher
+DataIngestionConfig = namedtuple("DatasetConfig", ["dataset_download_url",
+                                                   "raw_data_dir",
+                                                   "tgz_download_dir",
+                                                   "ingested_train_dir",
+                                                   "ingested_test_dir"])
 
+DataValidationConfig = namedtuple("DataValidationConfig", ["schema_file_path"])
 
-DataIngestionConfig = namedtuple("DatasetConfig", ["name", "path", "type"])
+DataTransformationConfig = namedtuple("DataTransformationConfig", ["add_bedroom_per_room",
+                                                                   "transformed_train_dir", "transformed_test_dir",
+                                                                   "preprocessed_object_file_path"])
 
+ModelTrainerConfig = namedtuple("ModelTrainerConfig", ["trained_model_file_path","base_accuracy"])
 
-DataValidationConfig = namedtuple("DataValidationConfig", ["name", "path", "type"])
+ModelEvaluationConfig = namedtuple("ModelEvaluationConfig", ["model_evaluation_file_path","time_stamp"])
 
+ModelPusherConfig = namedtuple("ModelPusherConfig", ["export_dir_path"])
 
-DataTransformationConfig = namedtuple("DataTransformationConfig", ["name", "path", "type"])
-
-
-ModelTrainerConfig  = namedtuple("ModelTrainerConfig", ["name", "path", "type"])
-
-
-ModelEvaluationConfig = namedtuple("ModelEvaluationConfig", ["name", "path", "type"])
-
-ModelPusherConfig = namedtuple("ModelPusherConfig", ["name", "path", "type"])
-
-
+TrainingPipelineConfig = namedtuple("TrainingPipelineConfig", ["artifact_dir"])
 
 
