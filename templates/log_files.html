@@ -1,19 +1,42 @@
-<html>
 
-<head>
-    <meta charset="utf-8">
-    <title>Log files</title>
-</head>
-    <body>
-<ul>
-    {% for file in files %}
-    <li>
-        <a href="/logs/{{file}}">
-            {{  file }}
-        </a>
-    </li>
+
+  
+{% extends 'header.html' %}
+
+{% block head %}
+
+      
+<title>Log Files</title>
+{% endblock %}
+
+{% block content %}
+
+
+
+
+    
+{% if "logs" in result['parent_folder'] %}
+<a href="/logs/{{result['parent_folder']}}"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a>
+
+<h4 style="text-align:center;">
+{{result['parent_label']}}
+</h4>
+    {% endif %}
+
+<div class="row">
+    {% for href,label in result["files"].items() %}
+    <div class="col-md-2">
+        <a href="/logs/{{href}}" style="text-decoration: none;">
+
+            <i class="fa {% if '.' in label %} fa-file {% else %} fa-folder {% endif %} fa-8x" aria-hidden="true"></i> <br>{{ label }}
+            {% if '.' in label %}
+        <i class="fa fa-download" aria-hidden="true"></i>
+        {% endif %}
+    </a>
+    </div>
     {% endfor %}
-</ul>
-</body>
+   
+</div>
 
-</html>
+
+{% endblock %}

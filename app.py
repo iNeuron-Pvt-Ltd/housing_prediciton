@@ -17,7 +17,34 @@ HOUSING_DATA_KEY = "housing_data"
 MEDIAN_HOUSING_VALUE_KEY = "median_house_value"
 
 app = Flask(__name__)
-import pandas as pd
+
+
+
+
+@app.route('/artifact', defaults={'req_path': 'housing'})
+@app.route('/artifact/<path:req_path>')
+def render_artifact_dir(req_path):
+    os.makedirs("housing", exist_ok=True)
+    # Joining the base and the requested path
+    print(f"req_path: {req_path}")
+    abs_path = os.path.join(req_path)
+    print(abs_path)
+    # Return 404 if path doesn't exist
+    if not os.path.exists(abs_path):
+        return abort(404)
+
+    # Check if path is a file and serve
+    if os.path.isfile(abs_path):
+        return send_file(abs_path)
+
+    # Show directory contents
+    files = {os.path.join(abs_path, file):file for file in os.listdir(abs_path)}
+    result = {
+        "files": files,
+        "parent_folder": os.path.dirname(abs_path),
+         "parent_label": abs_path
+    }
+    return render_template('files.html', result=result)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -26,6 +53,15 @@ def index():
         return render_template('index.html')
     except Exception as e:
         return str(e)
+
+
+@app.route('/train', methods=['GET', 'POST'])
+def train():
+    from subprocess import call
+    return_code = call(["python", "test.py"])
+    print(return_code)
+    return render_template('train.html')
+
 
 
 @app.route('/predict', methods=['GET', 'POST'])
@@ -56,7 +92,7 @@ def predict():
                                    median_income=median_income,
                                    ocean_proximity=ocean_proximity,
                                    )
-        housing_df = pd.DataFrame(housing_data.get_housing_input_data_frame())
+        housing_df = housing_data.get_housing_input_data_frame()
         housing_predictor = HousingPredictor(model_dir=MODEL_DIR)
         median_housing_value = housing_predictor.predict(X=housing_df)
         context = {
@@ -84,8 +120,14 @@ def saved_models_dir(req_path):
         return send_file(abs_path)
 
     # Show directory contents
-    files = [os.path.join(abs_path, file) for file in os.listdir(abs_path)]
-    return render_template('saved_models_files.html', files=files)
+    files = {os.path.join(abs_path, file):file for file in os.listdir(abs_path)}
+
+    result = {
+        "files": files,
+        "parent_folder": os.path.dirname(abs_path),
+        "parent_label": abs_path
+    }
+    return render_template('saved_models_files.html', result=result)
 
 
 @app.route('/logs', defaults={'req_path': 'logs'})
@@ -105,29 +147,15 @@ def render_log_dir(req_path):
         return send_file(abs_path)
 
     # Show directory contents
-    files = [os.path.join(abs_path, file) for file in os.listdir(abs_path)]
-    return render_template('log_files.html', files=files)
+    files = {os.path.join(abs_path, file):file for file in os.listdir(abs_path)}
+    
+    result = {
+        "files": files,
+        "parent_folder": os.path.dirname(abs_path),
+        "parent_label": abs_path
+    }
+    return render_template('log_files.html', result=result)
 
-
-@app.route('/artifact', defaults={'req_path': 'housing'})
-@app.route('/artifact/<path:req_path>')
-def render_artifact_dir(req_path):
-    os.makedirs("housing", exist_ok=True)
-    # Joining the base and the requested path
-    print(f"req_path: {req_path}")
-    abs_path = os.path.join(req_path)
-    print(abs_path)
-    # Return 404 if path doesn't exist
-    if not os.path.exists(abs_path):
-        return abort(404)
-
-    # Check if path is a file and serve
-    if os.path.isfile(abs_path):
-        return send_file(abs_path)
-
-    # Show directory contents
-    files = [os.path.join(abs_path, file) for file in os.listdir(abs_path)]
-    return render_template('files.html', files=files)
 
 
 if __name__ == '__main__':
