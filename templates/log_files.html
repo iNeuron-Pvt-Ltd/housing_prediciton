@@ -1,0 +1,19 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Log files</title>
+</head>
+    <body>
+<ul>
+    {% for file in files %}
+    <li>
+        <a href="/logs/{{file}}">
+            {{  file }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+</body>
+
+</html>

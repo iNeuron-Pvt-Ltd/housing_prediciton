@@ -1,0 +1,56 @@
+
+
+<html>
+    <title>Prediction </title>
+<body>
+
+    <h1>Hosuing Data Form</h1>
+    <form action="/predict" method="post">
+
+            
+
+    <input type="text" name="longitude" placeholder="Enter a value of longitude"  />
+    <input type="text" name="latitude" placeholder="Enter a value of latitude"  />
+    <input type="text" name="housing_median_age" placeholder="Enter a value of housing_median_age"  />
+    <input type="text" name="total_rooms" placeholder="Enter a value of total_rooms"  />
+    <input type="text" name="total_bedrooms" placeholder="Enter a value of total_bedrooms"  />
+    <input type="text" name="population" placeholder="Enter a value of population"  />
+    <input type="text" name="households" placeholder="Enter a value of households"  />
+    <input type="text" name="median_income" placeholder="Enter a value of median_income"  />
+    <input type="text" name="ocean_proximity" placeholder="Enter a value of ocean_proximity"  />
+    <input type="submit" value="Predict Median House Value" />
+    </form>
+
+
+
+
+{% if context['housing_data'] is not none %}
+<table border="1"> 
+    <caption>Califoria Housing Prediction </caption>
+    <tr>
+        <th>Input Feature</th>
+        <th>Feature Value</th>
+
+    </tr>
+{% for column,value in context['housing_data'].items() %}
+
+
+
+    <tr>
+        <td>{{column}}</td>
+        <td>{{value[0]}}</td>
+    </tr>
+
+{% endfor %}
+<tr>
+
+<td>median_house_value </td>
+<td>
+{{ context['median_house_value'] }}
+</td>
+</tr>
+</table>
+{% endif %}
+</body>
+
+    </html>
