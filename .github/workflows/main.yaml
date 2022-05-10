@@ -13,6 +13,6 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_API_KEY}} #Must be unique in Heroku
-          heroku_email: ${{secrets.HEROKU_API_KEY}}
-          healthcheck: "https://${{secrets.HEROKU_API_KEY}}.herokuapp.com/health"
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          healthcheck: "https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/health"
