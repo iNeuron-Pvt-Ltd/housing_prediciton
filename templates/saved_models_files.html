@@ -10,7 +10,7 @@
 
 
 
-    
+
     {% if "saved_models" in result['parent_folder'] %}
     <a href="/saved_models/{{result['parent_folder']}}"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a>
     
@@ -21,7 +21,7 @@
 
     <div class="row">
         {% for href,label in result["files"].items() %}
-        <div class="col-md-2">
+        <div class="col-md-2 text-center">
             <a href="/saved_models/{{href}}" style="text-decoration: none;">
 
                 <i class="fa {% if '.' in label %} fa-file {% else %} fa-folder {% endif %} fa-8x" aria-hidden="true"></i> <br>{{ label }}
