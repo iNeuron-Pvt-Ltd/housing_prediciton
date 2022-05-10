@@ -1,24 +1,89 @@
-
-  
 {% extends 'header.html' %}
 
 {% block head %}
 
-      
+
 <title>Index</title>
 {% endblock %}
 
 {% block content %}
 
-<br>
-<br>
-<br>
-    <a href="/logs">Check logs</a>  
-    <a href="/artifact">Check artifacts</a>  
-    <a href="/saved_models">Saved Models</a>  
-    Estimate Housing median value in California <a href="/predict">Click Here!!</a>  
-    Create a model California housing cost estimator.<a href="/train">Click Here!!</a>
-    
-    
-    {% endblock %}
+<div class="row">
+<div class="col-md-4 col-lg-4 col-sm-12">
+<div class="card">
+    <div class="card-header">
+       View Logs
+    </div>
+    <div class="card-body">
 
+        <h5 class="card-title">Log Files</h5>
+        <p class="card-text">All model training log file can be downloaded.</p>
+        <a class="btn btn-primary" href="/logs">Check Logs</a>
+    </div>
+</div>
+</div>
+
+
+<div class="col-md-4 col-lg-4 col-sm-12" style="margin-bottom:20px;">
+    <div class="card">
+        <div class="card-header">
+           View Artifacts
+        </div>
+        <div class="card-body">
+    
+            <h5 class="card-title">Artifact Files</h5>
+            <p class="card-text">All model artifacts file can be downloaded.</p>
+            <a class="btn btn-primary" href="/artifact">Check Artifacts</a>
+        </div>
+    </div>
+    </div>
+
+
+
+    <div class="col-md-4 col-lg-4 col-sm-12"  style="margin-bottom:20px;">
+        <div class="card">
+            <div class="card-header">
+               View Trained Models
+            </div>
+            <div class="card-body">
+        
+                <h5 class="card-title">Trained Models</h5>
+                <p class="card-text">All model file can be downloaded.</p>
+                <a class="btn btn-primary" href="/saved_models">Check Models</a>
+            </div>
+        </div>
+        </div>
+
+        
+    <div class="col-md-4 col-lg-4 col-sm-12"  style="margin-bottom:20px;">
+        <div class="card">
+            <div class="card-header">
+              Estimate California price
+            </div>
+            <div class="card-body">
+        
+                <h5 class="card-title">Access California estimator</h5>
+                <p class="card-text">Form will be displayed. Submit the form to get estimated price for california house.</p>
+                <a class="btn btn-primary" href="/predict">Get Estimated Price</a>
+            </div>
+        </div>
+        </div>
+ 
+        <div class="col-md-4 col-lg-4 col-sm-12"  style="margin-bottom:20px;">
+            <div class="card">
+                <div class="card-header">
+                  Train housing estimator model.
+                </div>
+                <div class="card-body">
+            
+                    <h5 class="card-title">Initiate model training.</h5>
+                    <p class="card-text">Model training will be done. Files such as log, artifact and models can be viewed and downloaded using appropriate link.</p>
+                    <a class="btn btn-danger" href="/train">Initiate Training</a>
+                </div>
+            </div>
+            </div>
+    
+
+</div>
+
+{% endblock %}

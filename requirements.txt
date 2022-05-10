@@ -1,8 +1,9 @@
-matplotlib
-numpy
-pandas
-scipy 
 scikit-learn
+scipy 
 PyYAML
+gunicorn
+pandas
 -e .
 six
+dill
+Flask

@@ -10,6 +10,7 @@
    
         .col-md-2 {
             margin-bottom: 20px;
+            margin-top: 20px;
         }
     </style>
     <!-- Bootstrap CSS -->
@@ -43,20 +44,18 @@
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/logs">View Logs</a>
+                        <a class="nav-link {% if 'log' in request.path %} active {% endif %}" href="/logs">View Logs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/artifact">View Artifacts</a>
+                        <a class="nav-link {% if 'artifact' in request.path %} active {% endif %}" href="/artifact">View Artifacts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/saved_models">View Trained Model</a>
+                        <a class="nav-link {% if 'saved_models' in request.path %} active {% endif %}" href="/saved_models">View Trained Model</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/predict">Estimate Housing Price</a>
+                        <a class="nav-link {% if 'predict' in request.path %} active {% endif %}" href="/predict">Estimate Housing Price</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/train">Train Housing Price Estimator</a>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -64,29 +63,31 @@
     </nav>
 
 
+
     <div class="row">
+       
         <div class="col-md-2 col-sm-12 col-lg-2">
             <ul class=" list-group ">
-                <li class="list-group-item py-1">
-                    <a  style=" text-decoration: none;" href="/logs">View Logs</a>
+                <li class="list-group-item py-1  {% if 'log' in request.path %} active {% endif %}">
+                    <a  style=" text-decoration: none;color:black" href="/logs">View Logs</a>
                 </li>
-                <li class="list-group-item py-1">
-                    <a style=" text-decoration: none;" href="/artifact">View Artifacts</a>
+                <li class="list-group-item py-1 {% if 'artifact' in request.path %} active {% endif %}">
+                    <a style=" text-decoration: none;color:rgb(0, 0, 0)" href="/artifact">View Artifacts</a>
                 </li>
-                <li class="list-group-item py-1">
-                    <a style=" text-decoration: none;" href="/saved_models">View Trained Model</a>
+                <li class="list-group-item py-1 {% if 'saved_models' in request.path %} active {% endif %}">
+                    <a style=" text-decoration: none;color:black" href="/saved_models">View Trained Model</a>
                 </li>
-                <li class="list-group-item py-1">
-                    <a style=" text-decoration: none;" href="/predict">Estimate Housing Price</a>
+                <li class="list-group-item py-1 {% if 'predict' in request.path %} active {% endif %}">
+                    <a style=" text-decoration: none;color:black" href="/predict">Estimate Housing Price</a>
                 </li>
-                <li class="list-group-item py-1">
-                    <a style=" text-decoration: none;" href="/train">Train Housing Price Estimator</a>
+                <li class="list-group-item py-1 {% if 'train' in request.path %} active {% endif %}">
+                    <a style=" text-decoration: none;color:black" href="/train">Train Housing Price Estimator</a>
                 </li>
             </ul>
 
         </div>
 
-        <div class="col-md-8 col-sm-12 col-lg-9">
+        <div class="col-md-8 col-sm-12 col-lg-9" style="margin-top:20px;"> 
             {% block content %}
 
 
