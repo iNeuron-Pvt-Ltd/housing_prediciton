@@ -6,4 +6,3 @@ pandas
 -e .
 six
 dill
-Flask

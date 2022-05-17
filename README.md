@@ -4,6 +4,7 @@ Welcome to Machine Learning Housing Corporation! The first task you are asked to
 
 
 Main step for machine Learning Projects.
+
 1. Look at the big picture.
 2. Get the data.
 3. Discover and visualize the data to gain insights.
@@ -13,54 +14,120 @@ Main step for machine Learning Projects.
 7. Present your solution.
 8. Launch, monitor, and maintain your system.
 
-Create a conda environment
-```
- conda create -p venv python==3.7 -y
-```
-Activate conda environement
-```
-conda activate venv
-```
+# Follow below instruction to start your projects.
 
-Add folleing library in requirements.txt file
-```
-matplotlib
-numpy
-pandas
-scipy 
-scikit-learn
-PyYAML
-```
-Install requirements.txt file using below command
-```
-pip install -r requirements.txt
-```
-
-Create following folder using below command
-```
-mkdir app_config app_exception app_logger app_util app_pipeline app_src
-```
-
-Create following python script files
-```
-touch app_config/__init__.py app_exception/__init__.py app_logger/__init__.py app_pipeline/__init__.py 
-```
-
-
-
-
-
-Add below configuration config details in config/config.yaml
-```
-pipeline_config:
-  artifact_url: housing/artifact
-
-dataset_config:
-  dataset_download_url: https://raw.githubusercontent.com/ageron/handson-ml/master/datasets/housing/housing.tgz
-  raw_data_dir: raw_data
-
-
+1. Create a github repo.
+2. Clone github repo in your system
   ```
+  git clone <github-url>
+  ```
+3. Open folder in vscode.
+
+4. Create project folder structure based on standard practices.
+   
+   First download a bash script file.
+  
+  <a href="https://raw.githubusercontent.com/iNeuron-Pvt-Ltd/housing_prediciton/main/inital_bash_script.sh">
+Download initial script file.
+  </a>
+
+5. Run bash script using below command
+
+```
+bash <script_name>
+```
+
+6. Add following library in requirements.txt file.
+
+```
+scikit-learn
+scipy 
+PyYAML
+gunicorn
+pandas
+-e .
+six
+dill
+Flask
+```
+
+7. Create a app.py and create a sample hello world flask app.
+
+
+8. To send changes to github repo 
+
+To add all changes into git stage
+```
+git add .
+```
+
+To check all files that we are about to commit.
+```
+git status 
+```
+Commit all files added in git stage
+```
+git commit -m "<message>"
+```
+
+If your git account is not configured.
+
+Execute below command to configure your git.
+```
+git config --global user.name "<user>"
+```
+```
+git config --global user.email "<user_email>"
+```
+To check remote branch url
+```
+git remote -v
+```
+To send your commit to remote branch
+
+git push <var_name> <branch_name>
+
+
+
+update your commited files in github repo
+```
+git push origin main
+```
+
+## Create an Account at heroku
+
+Create an App at heroku
+We need 3 information to setup github action
+1. Heroku API KEY
+2. Heroku APP Name
+3. Heroku Account Emaild Id
+
+Let's create a docker file for our application
+
+Create file .dockerignore and Dockerfile
+
+Create a folder directory .github/workflows/main.yaml
+
+Check github workflow code from below link.
+
+<a href="https://github.com/marketplace/actions/build-push-and-release-a-docker-container-to-heroku">Build and Deploy Docker image to Heroku container.</a>
+
+Add the content from above webpage.
+
+
+Add repo secret in github
+
+Note: Kindly check your variable name in github/workflows/main.yaml file.
+
+setting> secrets> Add new Repository Secrets.
+
+Add folder name in .dockerignore file that are not needed in Docker image
+
+Again send changes to Github repo.
+
+Basic Project CI/CD setup completed.
+
+
 
 
 
