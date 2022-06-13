@@ -1,42 +1,42 @@
-
 {% extends 'header.html' %}
 
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
-   
-<style>
-   
-    @font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu'), url(http://example.com/fonts/ubuntu.woff) format('woff');
-}
-    #log_data{
 
-    -webkit-box-shadow: 5px 5px 5px 0px rgba(130,130,130,1);
--moz-box-shadow: 5px 5px 5px 0px rgba(130,130,130,1);
-box-shadow: 5px 5px 5px 0px rgba(130,130,130,1);
-color:white;
-background-color: black;
-padding: 20px;
-height: 350px;
-font-family: Ubuntu, "times new roman", times, roman, serif;
-width:100%;
-   overflow-y:auto;
+<style>
+    @font-face {
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Ubuntu'), url(http://example.com/fonts/ubuntu.woff) format('woff');
+    }
+
+    #log_data {
+
+        -webkit-box-shadow: 5px 5px 5px 0px rgba(130, 130, 130, 1);
+        -moz-box-shadow: 5px 5px 5px 0px rgba(130, 130, 130, 1);
+        box-shadow: 5px 5px 5px 0px rgba(130, 130, 130, 1);
+        color: white;
+        background-color: black;
+        padding: 20px;
+        height: 350px;
+        font-family: Ubuntu, "times new roman", times, roman, serif;
+        width: 100%;
+        overflow-y: auto;
     }
 </style>
 <script>
-    $(document).ready(function(){
-       var training_socket=io.connect("wss://california-housing-prediction.herokuapp.com/");           //console.log(training_socket)
-      
-       training_socket.emit('get_log_details');
-       training_socket.on('log_message',function(msg){
-           console.log(msg)
-           
-           $("#log_data").append(msg+"<br>");
-       })});
+    $(document).ready(function () {
+        var training_socket = io.connect("wss://california-housing-prediction.herokuapp.com/");           //console.log(training_socket)
+
+        training_socket.emit('get_log_details');
+        training_socket.on('log_message', function (msg) {
+            console.log(msg)
+
+            $("#log_data").append(msg + "<br>");
+        })
+    });
 </script>
 
 <title>Housing Estimator training log</title>
@@ -47,7 +47,9 @@ width:100%;
 <div class="row">
     <div class="col-md-11 col-sm-11 col-xs-6 col-lg-11">
 
-<div id="log_data">
+        <div id="log_data">
+        </div>
+    </div>
 </div>
 
 {% endblock %}
