@@ -12,5 +12,4 @@ python-engineio==3.13.2
 python-socketio==4.6.0
 Werkzeug==2.0.1
 gunicorn==20.1.0
-flask_socketio
 eventlet==0.30.2

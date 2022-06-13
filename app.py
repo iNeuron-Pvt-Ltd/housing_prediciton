@@ -187,6 +187,6 @@ def render_log_dir(req_path):
 
 if __name__ == '__main__':
     #app.run()
-    socket_io.run(app,port=5000)
+    socket_io.run(app,port=os.environ['PORT'])
 
 
