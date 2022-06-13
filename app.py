@@ -1,9 +1,15 @@
+import logging
 from flask import Flask, request
 from flask import send_file, abort, render_template
 import os
-
+from threading import Thread
 from app_entity.housing_predictor import HousingData
 from app_entity.housing_predictor import HousingPredictor
+from flask_socketio import SocketIO, emit
+import time
+
+
+
 
 ROOT_DIR = os.getcwd()
 LOG_FOLDER_NAME = "logs"
@@ -17,8 +23,29 @@ HOUSING_DATA_KEY = "housing_data"
 MEDIAN_HOUSING_VALUE_KEY = "median_house_value"
 
 app = Flask(__name__)
+socket_io = SocketIO(app,cors_allowed_origins="*")
 
 
+@socket_io.on('connect')
+def connect():
+    print("connected")
+
+
+@socket_io.on('get_log_details')
+def send_log_data():
+
+    for file_name in os.listdir(LOG_DIR):
+        file_path=os.path.join(LOG_DIR,file_name)
+        with open(file_path) as f:
+            for line in f.readlines():
+                print(line)
+                emit('log_message',line)
+                time.sleep(1)
+
+
+@app.route('/get_log',methods=['GET'])
+def get_log():
+    return  render_template('training_log.html', )
 
 
 @app.route('/artifact', defaults={'req_path': 'housing'})
@@ -159,4 +186,7 @@ def render_log_dir(req_path):
 
 
 if __name__ == '__main__':
-    app.run()
+    #app.run()
+    socket_io.run(app,port=5000)
+
+
