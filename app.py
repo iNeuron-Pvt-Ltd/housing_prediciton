@@ -19,8 +19,6 @@ MEDIAN_HOUSING_VALUE_KEY = "median_house_value"
 app = Flask(__name__)
 
 
-
-
 @app.route('/artifact', defaults={'req_path': 'housing'})
 @app.route('/artifact/<path:req_path>')
 def render_artifact_dir(req_path):
@@ -35,14 +33,21 @@ def render_artifact_dir(req_path):
 
     # Check if path is a file and serve
     if os.path.isfile(abs_path):
+        if ".html" in abs_path:
+            with open(abs_path, "r",encoding="utf-8") as file:
+                content = ''
+                for line in file.readlines():
+                    content = f"{content}{line}"
+                return content
         return send_file(abs_path)
 
     # Show directory contents
-    files = {os.path.join(abs_path, file):file for file in os.listdir(abs_path)}
+    files = {os.path.join(abs_path, file): file for file in os.listdir(abs_path)}
+
     result = {
         "files": files,
         "parent_folder": os.path.dirname(abs_path),
-         "parent_label": abs_path
+        "parent_label": abs_path
     }
     return render_template('files.html', result=result)
 
@@ -61,7 +66,6 @@ def train():
     return_code = call(["python", "test.py"])
     print(return_code)
     return render_template('train.html')
-
 
 
 @app.route('/predict', methods=['GET', 'POST'])
@@ -120,7 +124,7 @@ def saved_models_dir(req_path):
         return send_file(abs_path)
 
     # Show directory contents
-    files = {os.path.join(abs_path, file):file for file in os.listdir(abs_path)}
+    files = {os.path.join(abs_path, file): file for file in os.listdir(abs_path)}
 
     result = {
         "files": files,
@@ -147,15 +151,14 @@ def render_log_dir(req_path):
         return send_file(abs_path)
 
     # Show directory contents
-    files = {os.path.join(abs_path, file):file for file in os.listdir(abs_path)}
-    
+    files = {os.path.join(abs_path, file): file for file in os.listdir(abs_path)}
+
     result = {
         "files": files,
         "parent_folder": os.path.dirname(abs_path),
         "parent_label": abs_path
     }
     return render_template('log_files.html', result=result)
-
 
 
 if __name__ == '__main__':
