@@ -31,7 +31,10 @@ DATA_INGESTION_TEST_DIR_KEY = "ingested_test_dir"
 # Data Validation related variables
 DATA_VALIDATION_CONFIG_KEY = "data_validation_config"
 DATA_VALIDATION_SCHEMA_FILE_NAME_KEY = "schema_file_name"
-
+DATA_VALIDATION_ARTIFACT_DIR = "data_validation"
+DATA_VALIDATION_REPORT_FILE_NAME_KEY = "validation_report_file_name"
+DATA_VALIDATION_REPORT_HTML_PAGE_KEY = "validation_html_file_name"
+DATA_VALIDATION_OBJECT_NAME_KEY = "validation_object_file_name"
 # Data Transformation related variables
 DATA_TRANSFORMATION_ARTIFACT_DIR = "data_transformation"
 DATA_TRANSFORMATION_CONFIG_KEY = "data_transformation_config"
@@ -69,7 +72,7 @@ CONFIG_FILE_PATH = os.path.join(ROOT_DIR, CONFIG_DIR, CONFIG_FILE_NAME)
 
 
 class AppConfiguration:
-    def __init__(self, config_file_path: str = CONFIG_FILE_PATH,current_time_stamp:str=CURRENT_TIME_STAMP):
+    def __init__(self, config_file_path: str = CONFIG_FILE_PATH, current_time_stamp: str = CURRENT_TIME_STAMP):
         """
         Initializes the AppConfiguration class.
         config_file_path: str
@@ -119,7 +122,17 @@ class AppConfiguration:
             data_vaidation_config = self.config_info[DATA_VALIDATION_CONFIG_KEY]
             schema_file_path = os.path.join(
                 ROOT_DIR, data_vaidation_config[DATA_VALIDATION_SCHEMA_FILE_NAME_KEY])
-            response = DataValidationConfig(schema_file_path=schema_file_path)
+            artifact_dir = os.path.join(
+                self.training_pipeline_config.artifact_dir, DATA_VALIDATION_ARTIFACT_DIR, self.time_stamp)
+
+            validator_obj_file_path = os.path.join(artifact_dir, data_vaidation_config[DATA_VALIDATION_OBJECT_NAME_KEY])
+            report_file_path = os.path.join(artifact_dir,data_vaidation_config[DATA_VALIDATION_REPORT_FILE_NAME_KEY])
+            report_page_file_path = os.path.join(artifact_dir,data_vaidation_config[DATA_VALIDATION_REPORT_HTML_PAGE_KEY])
+            response = DataValidationConfig(schema_file_path=schema_file_path,
+                                            validator_obj_file_path=validator_obj_file_path,
+                                            report_file_path=report_file_path,
+                                            report_page_file_path=report_page_file_path
+                                            )
             logging.info(response)
             return response
         except Exception as e:
@@ -222,13 +235,13 @@ class AppConfiguration:
         except Exception as e:
             raise AppException(e, sys) from e
 
-
     def get_housing_prediction_model_dir(self) -> str:
         try:
             model_pusher_config = self.config_info[MODEL_PUSHER_CONFIG_KEY]
             return os.path.join(ROOT_DIR, model_pusher_config[MODEL_PUSHER_MODEL_EXPORT_DIR_KEY])
         except Exception as e:
             raise AppException(e, sys) from e
+
 
 if __name__ == '__main__':
     try:

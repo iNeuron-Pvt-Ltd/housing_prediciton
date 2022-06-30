@@ -7,7 +7,7 @@ MetricInfoArtifact = namedtuple("MetricInfo",
 DataIngestionArtifact = namedtuple("DataIngestionArtifact", [
     "train_file_path", "test_file_path", "is_ingested", "message"])
 DataValidationArtifact = namedtuple("DataValidationArtifact", [
-    "is_validated", "message", "schema_file_path"])
+    "is_validated", "message", "schema_file_path","report","report_page","validator_obj"])
 DataTransformationArtifact = namedtuple("DataTransformationArtifact", ["is_transformed",
                                                                        "message", "transformed_train_file_path",
                                                                        "transformed_test_file_path",

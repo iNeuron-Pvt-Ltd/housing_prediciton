@@ -55,7 +55,9 @@
                     <li class="nav-item">
                         <a class="nav-link {% if 'predict' in request.path %} active {% endif %}" href="/predict">Estimate Housing Price</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'predict' in request.path %} active {% endif %}"  target="_blank" href="https://airflow-web.herokuapp.com/graph?dag_id=housing_pipeline">Airflow Housing Pipeline</a>
+                    </li>
                 </ul>
             </div>
         </div>
