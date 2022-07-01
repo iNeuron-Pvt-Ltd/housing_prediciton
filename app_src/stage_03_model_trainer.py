@@ -2,7 +2,7 @@ from cmath import log
 from app_logger import logging
 from app_exception import AppException
 from app_entity import ModelTrainerConfig, ModelTrainerArtifact
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, LogisticRegression
 from app_entity import DataTransformationArtifact, MetricInfoArtifact
 from app_src import DataTransformation
 from sklearn.metrics import r2_score, mean_squared_error
@@ -10,6 +10,7 @@ import os
 import sys
 from app_util import load_object, save_object
 from sklearn.tree import DecisionTreeRegressor
+from app_entity.model_factory import ModelFactory
 
 
 class TrainedModel:
@@ -45,33 +46,11 @@ class ModelTrainer:
             logging.info(f"{'=' * 20}Model trainer log started.{'=' * 20} ")
             self.model_trainer_config = model_trainer_config
             self.data_transformation_artifact = data_transformation_artifact
-            self.model_list = ModelTrainer.get_list_of_models()
-        except Exception as e:
-            raise AppException(e, sys) from e
-
-    @staticmethod
-    def get_list_of_models():
-        try:
-            model_list = []
-            linear_regression = LinearRegression()
-            model_list.append(linear_regression)
-            decision_tree_regressor = DecisionTreeRegressor()
-            model_list.append(decision_tree_regressor)
-            return model_list
-        except Exception as e:
-            raise AppException(e, sys) from e
-
-    def fit(self, X, y):
-        try:
-            for model in self.model_list:
-                logging.info(
-                    f"Started training model: [{type(model).__name__}]")
-                model.fit(X, y)
-                logging.info(
-                    f"Finished training model: [{type(model).__name__}]")
 
         except Exception as e:
             raise AppException(e, sys) from e
+
+
 
     @staticmethod
     def evaluate_model(model_list: list, X_train, y_train, X_test, y_test, base_accuracy=0.5) -> MetricInfoArtifact:
@@ -142,8 +121,17 @@ class ModelTrainer:
             X_train, y_train = train_dataset[:, :-1], train_dataset[:, -1]
             X_test, y_test = test_dataset[:, :-1], test_dataset[:, -1]
 
-            self.fit(X_train, y_train)
-            model_metric_artifact = ModelTrainer.evaluate_model(model_list=self.model_list,
+            model_factory = ModelFactory(model_config_path=self.model_trainer_config.model_config_file_path)
+
+            best_model_list = model_factory.initiate_best_parameter_search_for_initialized_models(
+                initialized_model_list=model_factory.get_initialized_model_list(),
+                input_feature=X_train,
+                output_feature=y_train
+            )
+
+            model_list = [model.best_model for model in best_model_list]
+
+            model_metric_artifact = ModelTrainer.evaluate_model(model_list=model_list,
                                                                 X_train=X_train,
                                                                 y_train=y_train,
                                                                 X_test=X_test,

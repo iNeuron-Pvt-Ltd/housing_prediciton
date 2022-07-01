@@ -51,7 +51,8 @@ MODEL_TRAINER_CONFIG_KEY = "model_trainer_config"
 MODEL_TRAINER_DIR_KEY = "trained_model_dir"
 MODEL_TRAINER_FILE_NAME_KEY = "model_file_name"
 MODEL_TRAINER_BASE_ACCURACY_KEY = "base_accuracy"
-
+MODEL_TRAINER_MODEL_CONFIG_DIR = "model_config_dir"
+MODEL_TRAINER_MODEL_CONFIG_FILE = "model_config_file"
 # Model Evaluation related variables
 
 MODEL_EVALUATION_CONFIG_KEY = "model_evaluation_config"
@@ -126,8 +127,9 @@ class AppConfiguration:
                 self.training_pipeline_config.artifact_dir, DATA_VALIDATION_ARTIFACT_DIR, self.time_stamp)
 
             validator_obj_file_path = os.path.join(artifact_dir, data_vaidation_config[DATA_VALIDATION_OBJECT_NAME_KEY])
-            report_file_path = os.path.join(artifact_dir,data_vaidation_config[DATA_VALIDATION_REPORT_FILE_NAME_KEY])
-            report_page_file_path = os.path.join(artifact_dir,data_vaidation_config[DATA_VALIDATION_REPORT_HTML_PAGE_KEY])
+            report_file_path = os.path.join(artifact_dir, data_vaidation_config[DATA_VALIDATION_REPORT_FILE_NAME_KEY])
+            report_page_file_path = os.path.join(artifact_dir,
+                                                 data_vaidation_config[DATA_VALIDATION_REPORT_HTML_PAGE_KEY])
             response = DataValidationConfig(schema_file_path=schema_file_path,
                                             validator_obj_file_path=validator_obj_file_path,
                                             report_file_path=report_file_path,
@@ -186,8 +188,11 @@ class AppConfiguration:
 
             base_accuracy = model_trainer_config[MODEL_TRAINER_BASE_ACCURACY_KEY]
 
+            model_config_file_path = os.path.join(ROOT_DIR, model_trainer_config[MODEL_TRAINER_MODEL_CONFIG_DIR],
+                                                  model_trainer_config[MODEL_TRAINER_MODEL_CONFIG_FILE])
             response = ModelTrainerConfig(trained_model_file_path=model_file_path,
                                           base_accuracy=base_accuracy,
+                                          model_config_file_path=model_config_file_path
                                           )
             logging.info(f"Model Trainer Config: {response}")
             return response

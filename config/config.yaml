@@ -29,6 +29,8 @@ data_transformation_config:
   preprocessed_object_file_name: preprocessed.pkl
   
 model_trainer_config:
+  model_config_dir: config
+  model_config_file: model.yaml
   trained_model_dir: trained_model
   model_file_name: model.pkl
   base_accuracy: 0.6

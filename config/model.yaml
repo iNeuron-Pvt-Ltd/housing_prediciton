@@ -1,0 +1,43 @@
+grid_search:
+  module: sklearn.model_selection
+  class: GridSearchCV
+  params:
+    cv: 3
+    verbose: 1
+
+model_selection:
+  model_0:
+    module: sklearn.tree
+    class: DecisionTreeRegressor
+    params:
+      criterion: squared_error
+      min_samples_leaf: 2
+    search_param_grid:
+      max_depth:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+  model_1:
+    module: sklearn.ensemble
+    class: RandomForestRegressor
+    search_param_grid:
+      max_depth:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+  model_2:
+    module: sklearn.linear_model
+    class: LinearRegression
+    search_param_grid:
+      fit_intercept:
+        - True
+        - False

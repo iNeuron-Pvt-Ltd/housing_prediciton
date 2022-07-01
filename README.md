@@ -161,3 +161,8 @@ Basic Project CI/CD setup completed.
 
 
 
+
+
+initialize_model()
+
+
