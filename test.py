@@ -6,6 +6,7 @@ from app_src.stage_02_data_transformation import DataTransformation
 
 if __name__ == '__main__':
     try:
+        
         TrainingPipeline().start_training_pipeline()
         #get_sample_model_config_yaml_file("logs")
         # model_config_file = os.path.join("config", "model.yaml")
