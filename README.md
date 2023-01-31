@@ -13,6 +13,7 @@ Main step for machine Learning Projects.
 6. Fine-tune your model.
 7. Present your solution.
 8. Launch, monitor, and maintain your system.
+9. deploy through the github action.
 
 # Follow below instruction to start your projects.
 
